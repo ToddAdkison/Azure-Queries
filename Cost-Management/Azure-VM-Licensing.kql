@@ -1,0 +1,12 @@
+// Azure-VM-Licensing.kql
+// KQL query to get VM's name, license type, os, sku and hardware profile.
+// If the licenseType column is empty, then the VM is NOT enabled for Azure Hybrid Benefit or is a non-Windows machine.
+// The Azure Hybrid Benefit can be found on the VM's Settings -> Configuration page.
+
+resources 
+| where type =~ 'Microsoft.Compute/virtualMachines'
+| extend os = properties.storageProfile.imageReference.offer
+| extend sku = properties.storageProfile.imageReference.sku
+| extend licenseType = tostring(properties.['licenseType'])
+| extend hardwareProfile = properties.hardwareProfile.vmSize
+| project name, licenseType, os, sku, hardwareProfile
