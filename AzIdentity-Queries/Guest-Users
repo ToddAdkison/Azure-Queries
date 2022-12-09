@@ -1,0 +1,15 @@
+SigninLogs
+| where TimeGenerated > ago (180d)
+| where UserType == "Guest"
+| extend userLocationDetails = todynamic(LocationDetails)
+| project TimeGenerated,
+          Identity,
+		  UserDisplayName,
+		  UserPrincipalName,
+		  UserId,
+		  City = userLocationDetails["city"],
+		  State = userLocationDetails["state"],
+		  CountryOrRegion = userLocationDetails["countryOrRegion"],
+		  AppDisplayName,
+		  ResourceDisplayName,
+		  ClientAppUsed
