@@ -1,3 +1,3 @@
-# Azure-Governance
+# Azure-Queries
 
-A repository to remember things.  Mostly around Azure.
+Azure KQL queries.
